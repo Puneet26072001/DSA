@@ -1,0 +1,4 @@
+for(int i=1;i<n;i++)
+        {
+            left[i]=min(left[i-1],prices[i]);
+        }
