@@ -1,0 +1,26 @@
+int longestUniqueSubstr(string &s) {
+        // code here
+        map<char,int> mp;
+        int left=0,right=0;
+        int result=0;
+        while(right<s.size())
+        {
+            if(mp.find(s[right])==mp.end())
+            {
+                mp[s[right]]=right;
+                right++;
+                result=max(result,right-left);
+            }
+            else
+            {
+                left=max(left,mp[s[right]]+1);
+                mp[s[right]]=right;
+                right++;
+                result=max(result,right-left);
+                
+            }
+            
+        }
+        return result;
+
+    }
