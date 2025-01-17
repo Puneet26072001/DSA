@@ -1,0 +1,44 @@
+class TimeMap {
+public:
+    // A map that holds a vector of pairs (value, timestamp) for each key.
+    unordered_map<string, vector<pair<string, int>>> map;
+
+    TimeMap() {
+        // No special initialization needed.
+    }
+
+    // Set function to store the key-value pair with timestamp.
+    void set(string key, string value, int timestamp) {
+        map[key].push_back({value, timestamp});
+    }
+
+    // Get function to retrieve the value at the closest timestamp <= the given timestamp for the key.
+    string get(string key, int timestamp) {
+        if (map.find(key) == map.end()) {
+            return "";  // If the key doesn't exist, return an empty string.
+        }
+        
+        vector<pair<string, int>>& entries = map[key];  // Get the vector of values for the key.
+        
+        int low = 0, high = entries.size() - 1;
+        string result = "";
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            
+            if (entries[mid].second == timestamp) {
+                // If we find an exact timestamp, return the associated value.
+                return entries[mid].first;
+            } else if (entries[mid].second < timestamp) {
+                // If the current timestamp is less than or equal, look right.
+                result = entries[mid].first;  // This is a potential candidate.
+                low = mid + 1;
+            } else {
+                // If the current timestamp is greater than the requested timestamp, look left.
+                high = mid - 1;
+            }
+        }
+
+        return result;  // Return the last valid result found, or an empty string if no valid timestamp found.
+    }
+};
