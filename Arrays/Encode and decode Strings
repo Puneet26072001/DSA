@@ -1,0 +1,52 @@
+class Solution {
+public:
+
+    string encode(vector<string>& strs) {
+        string result="";
+        cout<<result;
+        if(strs.size()==0)
+        return result;
+        int ch=128;
+        int handle=130;
+        for(int i=0;i<strs.size();i++)
+        {
+            if(strs[i]=="")
+            {
+            result+=handle;
+            }
+            else
+            result+=strs[i];
+            result+=ch;
+        }
+        cout<<result;
+        result.erase(result.size()-1);
+        return result;
+    }
+
+    vector<string> decode(string s) {
+        vector<string> res;
+        string temp="";
+        if(s.size()==0)
+        return res;
+        for(int i=0;i<s.size();i++)
+        {
+            cout<<int(s[i])<<endl;
+            if(s[i]==char(128))
+            {
+            res.push_back(temp);
+            temp="";
+            cout<<"Yes";
+            }
+            else if(s[i]==-126)
+            {
+            continue;
+            }
+            else
+            {
+                temp+=s[i];
+            }
+        }
+        res.push_back(temp);
+        return res;
+    }
+};
