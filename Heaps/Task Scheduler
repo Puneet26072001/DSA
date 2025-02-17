@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        map<char,int> mymap;
+        int finals=0;
+        for(int i=0;i<tasks.size();i++)
+        {
+            mymap[tasks[i]]++;
+        }
+        priority_queue<int> pq;
+        for(auto it:mymap)
+        {
+            pq.push(it.second);
+        }
+        queue<int> q;
+        while(!pq.empty())
+        {
+        int count=0;
+        int j=0;
+            while(!pq.empty()&& j<=n)
+            {
+                if(pq.top()!=1)
+                q.push(pq.top()-1);
+                pq.pop();
+                count++;
+                cout<<count<<endl;
+                j++;
+            }
+        while(!q.empty())
+        {
+        pq.push(q.front());
+        q.pop();
+        }
+        if(pq.empty())
+        finals+=count;
+        else
+        finals+=n+1;
+        }
+        return finals;
+        
+    }
+};
