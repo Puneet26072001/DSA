@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isPalindrome(string s,int i,int j)
+    {
+        for(int start=0;start<=(j-i+1)/2;start++)
+        {
+            if(s[start+i]!=s[j-start])
+            return false;
+        }
+        return true;
+    }
+    string longestPalindrome(string s) {
+        string res="";
+        if(s.size()==0)
+        return res;
+        if(s.size()==1)
+        return s;
+        for(int i=0;i<s.size()-1;i++)
+        {
+            if(res.size()==0) res=s[i];
+            for(int j=i+1;j<s.size();j++)
+            {
+                if(isPalindrome(s,i,j))
+                {
+                    cout<<i<<" "<<j<<" "<<s.substr(i,j-i+1)<<endl;
+                    if(j-i+1>res.size())
+                    res=s.substr(i,j-i+1);
+                }
+            }
+        }
+        return res;
+    }
+};
